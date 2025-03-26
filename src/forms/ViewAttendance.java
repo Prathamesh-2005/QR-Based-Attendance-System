@@ -37,7 +37,7 @@ public class ViewAttendance extends javax.swing.JFrame {
      */
     public ViewAttendance() {
         initComponents();
-        BDutility.setImage(this, "images/blackb.jpeg", 1200, 1200);
+        BDutility.setImage(this, "images/blackb.jpg", 1200, 1200);
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(6, 6, 6, 6, Color.white));
         DateChooserFrom.setDateFormatString("yyyy-MM-dd");
         DateChooserTo.setDateFormatString("yyyy-MM-dd");

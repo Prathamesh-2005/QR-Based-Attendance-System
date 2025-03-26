@@ -68,7 +68,7 @@ public class MarkingAttendance extends javax.swing.JFrame implements Runnable, T
 
     public MarkingAttendance() {
         initComponents();
-        BDutility.setImage(this, "images/blackb.jpeg", 2000, 1000);
+        BDutility.setImage(this, "images/blackb.jpg", 2000, 1000);
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.white));
         Timer timer = new Timer(1, e -> updateTime());
         timer.start();

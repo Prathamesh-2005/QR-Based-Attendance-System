@@ -43,7 +43,7 @@ File selectedFile = null;
     public updateuser() {
         initComponents();
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(4,4,4,4,Color.white));
-        BDutility.setImage(this,"images/blackb.jpeg",1000,700);
+        BDutility.setImage(this,"images/blackb.jpg",1000,700);
     }
 
     /**
@@ -114,11 +114,11 @@ File selectedFile = null;
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("State");
+        jLabel7.setText("Division");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Country");
+        jLabel8.setText("Batch");
 
         txtname.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 

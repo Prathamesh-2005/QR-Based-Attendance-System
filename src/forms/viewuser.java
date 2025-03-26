@@ -31,7 +31,7 @@ public class viewuser extends javax.swing.JFrame {
      */
     public viewuser() {
         initComponents();
-        BDutility.setImage(this, "images/blackb.jpeg",1223,600);
+        BDutility.setImage(this, "images/blackb.jpg",1223,600);
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(4,4,4,4,Color.white));
         
     }
@@ -103,7 +103,7 @@ public class viewuser extends javax.swing.JFrame {
 
             },
             new String [] {
-                "id", "Name", "Gender", "Email", "Contact", "Address", "State", "Country", "uniqueregic", "imagename"
+                "id", "Name", "Gender", "Email", "Contact", "Address", "Division", "Batch", "uniqueregic", "imagename"
             }
         ));
         usertable.addMouseListener(new java.awt.event.MouseAdapter() {

@@ -25,7 +25,7 @@ public class ViewQr extends javax.swing.JFrame {
     public ViewQr() {
         initComponents();
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.white));
-        BDutility.setImage(this, "images/blackb.jpeg", 1500, 800);
+        BDutility.setImage(this, "images/blackb.jpg", 1500, 800);
     }
 
     /**

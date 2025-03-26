@@ -48,7 +48,7 @@ public class GenerateQr extends javax.swing.JFrame {
     public GenerateQr() {
         initComponents();
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(4,4,4,4,Color.white));
-        BDutility.setImage(this,"images/blackb.jpeg",1500,800);
+        BDutility.setImage(this,"images/blackb.jpg",1500,800);
     }
 
     /**
@@ -70,7 +70,6 @@ public class GenerateQr extends javax.swing.JFrame {
         btnSaveQrAt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1101, 501));
         setMinimumSize(new java.awt.Dimension(1101, 501));
         setUndecorated(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -95,7 +94,7 @@ public class GenerateQr extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Gender", "Email", "Contact", "Address", "State", "Country", "Registration Id"
+                "Id", "Name", "Gender", "Email", "Contact", "Address", "Division", "Batch", "Registration Id"
             }
         ));
         userTable.addMouseListener(new java.awt.event.MouseAdapter() {

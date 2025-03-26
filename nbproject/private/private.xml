@@ -3,19 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/forms/Dashboard.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/forms/ViewAttendance.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/forms/viewuser.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/attendacemanagement/Attendacemanagement.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/forms/Deleteuser.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/forms/MarkingAttendance.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/forms/GenerateQr.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/dao/tables.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/log4j.properties</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/utility/BDutility.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/forms/ViewQr.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/forms/login.java</file>
-            <file>file:/C:/Users/venne/OneDrive/Pictures/Documents/NetBeansProjects/attendacemanagement/src/dao/connectionprovider.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/Dashboard.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/userregistration.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/utility/images/blackb.jpeg</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/ViewQr.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/GenerateQr.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/utility/images/blackb.jpg</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/ViewAttendance.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/dao/connectionprovider.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/facedetection/facedetection.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/updateuser.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/viewuser.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/login.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/testregistration.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/MarkingAttendance.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/forms/Deleteuser.java</file>
+            <file>file:/C:/Users/prath/OneDrive/Desktop/Attendance%20System/Attendance-System-using-java/src/dao/tables.java</file>
         </group>
     </open-files>
 </project-private>

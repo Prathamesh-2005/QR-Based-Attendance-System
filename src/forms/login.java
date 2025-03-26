@@ -21,7 +21,7 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
-        BDutility.setImage(this,"images/blackb.jpeg",635,506);
+        BDutility.setImage(this,"images/blackb.jpg",635,506);
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(6,6,6,6,Color.white));
         txtemail.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.BLACK));
         txtpassword.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.BLACK));

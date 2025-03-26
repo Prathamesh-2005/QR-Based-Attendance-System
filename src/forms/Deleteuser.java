@@ -41,7 +41,7 @@ public class Deleteuser extends javax.swing.JFrame {
      */
     public Deleteuser() {
          initComponents();
-        BDutility.setImage(this,"images/blackb.jpeg",1200,1200);
+        BDutility.setImage(this,"images/blackb.jpg",1200,1200);
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(6,6,6,6,Color.white));
        
     }
@@ -90,7 +90,7 @@ public class Deleteuser extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Name", "Gender", "Email", "Contact", "Address", "State", "Country", "Registration Id", "Image Name"
+                "Id", "Name", "Gender", "Email", "Contact", "Address", "Division", "batch", "Registration Id", "Image Name"
             }
         ));
         userTable.addMouseListener(new java.awt.event.MouseAdapter() {

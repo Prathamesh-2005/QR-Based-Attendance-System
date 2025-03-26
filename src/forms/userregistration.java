@@ -35,7 +35,7 @@ public class userregistration extends javax.swing.JFrame {
      */
     public userregistration() {
         initComponents();
-        BDutility.setImage(this,"images/blackb.jpeg",1000,700);
+        BDutility.setImage(this,"images/blackb.jpg",1000,700);
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(4,4,4,4,Color.white));
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -134,11 +134,11 @@ public class userregistration extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("State");
+        jLabel7.setText("Division");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Country");
+        jLabel8.setText("Batch");
 
         txtemail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 

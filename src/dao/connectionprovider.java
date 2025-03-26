@@ -12,10 +12,10 @@ import java.sql.DriverManager;
  * @author venne
  */
 public class connectionprovider {
-    private static final String db_name="attendancemanagementproject";
+    private static final String db_name="pbl";
     private static final String db_url="jdbc:mysql://localhost:3306/";
     private static final String db_username="root";
-    private static final String db_password="your password";
+    private static final String db_password="jadhav@123";
     
     
     public static Connection getcon(){
