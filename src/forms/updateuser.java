@@ -72,8 +72,6 @@ File selectedFile = null;
         txtaddress = new javax.swing.JTextField();
         txtstate = new javax.swing.JTextField();
         txtcountry = new javax.swing.JTextField();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
-        lblimage = new javax.swing.JLabel();
         search = new javax.swing.JButton();
         Clear = new javax.swing.JButton();
         update = new javax.swing.JButton();
@@ -165,31 +163,6 @@ File selectedFile = null;
 
         txtcountry.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jInternalFrame1.setVisible(true);
-
-        lblimage.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblimageMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblimage, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblimage, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         search.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         search.setText("Search");
         search.addActionListener(new java.awt.event.ActionListener() {
@@ -254,16 +227,11 @@ File selectedFile = null;
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75)
-                        .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75)
+                .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -281,9 +249,7 @@ File selectedFile = null;
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addGap(404, 404, 404)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Clear)
                             .addComponent(update)))
@@ -349,45 +315,7 @@ File selectedFile = null;
             radiomale.setSelected(false);
         }
     }//GEN-LAST:event_radiofemaleActionPerformed
-     
-    private void lblimageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblimageMouseClicked
-        // TODO add your handling code here:
-        JDialog dialog = new JDialog();
-dialog.setUndecorated(true);
-dialog.setSize(600, 400);
-JFileChooser fileChooser = new JFileChooser();
-FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG Images", "jpg");
-fileChooser.setFileFilter(filter);
-fileChooser.addActionListener(new ActionListener() {
-public void actionPerformed(ActionEvent e) {
-if (e.getActionCommand().equals(JFileChooser.APPROVE_SELECTION)) {
-selectedFile = fileChooser.getSelectedFile();
-try {
-originalImage = ImageIO.read(selectedFile);
-int originalWidth = originalImage.getWidth();
-int originalHeight = originalImage.getHeight();
-int labelWidth = lblimage.getWidth();
-int labelHeight = lblimage.getHeight();
-double scaleX = (double) labelWidth / originalWidth;
-double scaleY = (double) labelHeight / originalHeight;
-double scale = Math.min(scaleX, scaleY);
-int scaledWidth = (int) (originalWidth * scale);
-int scaledHeight = (int) (originalHeight * scale);
-Image scaledImage = originalImage.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
-ImageIcon icon = new ImageIcon(scaledImage);
-lblimage.setIcon(icon);
-} catch (IOException ex) {
-ex.printStackTrace();
-}
-}
-dialog.dispose();
-}
-});
-   dialog.add(fileChooser);
-   dialog.setLocationRelativeTo(this);
-   dialog.setVisible(true);
-    }//GEN-LAST:event_lblimageMouseClicked
-   String uniquereg=null;
+        String uniquereg=null;
    
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         // TODO add your handling code here:
@@ -417,21 +345,7 @@ txtstate.setText(rs.getString("state"));
 txtcountry.setText(rs.getString("country"));
 uniquereg = rs.getString("uniqueregid");
 String imageNameDB = rs.getString("imagename");
-existingImageName = Objects.isNull(imageNameDB) || imageNameDB.isEmpty() ? null : imageNameDB;
-if (!Objects.isNull(existingImageName)) {
-String imagePath = BDutility.getPath("images" + File.separator + existingImageName);
-File imageFile = new File(imagePath);
-if (imageFile.exists()) {
-ImageIcon icon = new ImageIcon(imagePath);
-Image image = icon.getImage().getScaledInstance(322, 286, Image.SCALE_SMOOTH);
-ImageIcon resizeIcon = new ImageIcon(image);
-lblimage.setIcon(resizeIcon);
-} else {
-lblimage.setIcon(null);
-}
-}else {
-lblimage.setIcon(null);
-}
+
 } 
 else {
 JOptionPane.showMessageDialog(null, "Email not found.", "Not Found", JOptionPane. WARNING_MESSAGE);
@@ -459,7 +373,6 @@ txtstate.setText("");
 txtcountry.setText("");
 radiomale.setSelected(false);
 radiofemale.setSelected(false);
-lblimage.setIcon(null);
   }
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         // TODO add your handling code here:
@@ -595,7 +508,6 @@ private String saveImage(String email) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Clear;
     private javax.swing.JButton exit;
-    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -604,7 +516,6 @@ private String saveImage(String email) {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel lblimage;
     private javax.swing.JRadioButton radiofemale;
     private javax.swing.JRadioButton radiomale;
     private javax.swing.JButton search;

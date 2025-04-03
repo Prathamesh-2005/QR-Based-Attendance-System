@@ -94,7 +94,7 @@ public class GenerateQr extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Name", "Gender", "Email", "Contact", "Address", "Division", "Batch", "Registration Id"
+                "ID", "Roll no", "Name", "Department", "Division", "Batch", "Email", "Gender", "Contact", "Address"
             }
         ));
         userTable.addMouseListener(new java.awt.event.MouseAdapter() {

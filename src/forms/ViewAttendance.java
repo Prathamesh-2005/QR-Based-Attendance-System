@@ -74,7 +74,6 @@ public class ViewAttendance extends javax.swing.JFrame {
         btnResetFilters = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1101, 501));
         setMinimumSize(new java.awt.Dimension(1101, 501));
         setUndecorated(true);
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -180,6 +179,11 @@ public class ViewAttendance extends javax.swing.JFrame {
                 CheckBoxContactItemStateChanged(evt);
             }
         });
+        CheckBoxContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxContactActionPerformed(evt);
+            }
+        });
 
         CheckBoxAddress.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         CheckBoxAddress.setForeground(new java.awt.Color(255, 255, 255));
@@ -197,19 +201,29 @@ public class ViewAttendance extends javax.swing.JFrame {
 
         CheckBoxState.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         CheckBoxState.setForeground(new java.awt.Color(255, 255, 255));
-        CheckBoxState.setText("State");
+        CheckBoxState.setText("Division");
         CheckBoxState.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 CheckBoxStateItemStateChanged(evt);
             }
         });
+        CheckBoxState.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxStateActionPerformed(evt);
+            }
+        });
 
         CheckBoxCountry.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         CheckBoxCountry.setForeground(new java.awt.Color(255, 255, 255));
-        CheckBoxCountry.setText("Country");
+        CheckBoxCountry.setText("Batch");
         CheckBoxCountry.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 CheckBoxCountryItemStateChanged(evt);
+            }
+        });
+        CheckBoxCountry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxCountryActionPerformed(evt);
             }
         });
 
@@ -429,6 +443,18 @@ public class ViewAttendance extends javax.swing.JFrame {
         // TODO add your handling code here:
         loadDataInTable();
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void CheckBoxCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxCountryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CheckBoxCountryActionPerformed
+
+    private void CheckBoxStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxStateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CheckBoxStateActionPerformed
+
+    private void CheckBoxContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxContactActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CheckBoxContactActionPerformed
 
     /**
      * @param args the command line arguments

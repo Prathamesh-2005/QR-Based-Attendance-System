@@ -68,7 +68,8 @@ public class MarkingAttendance extends javax.swing.JFrame implements Runnable, T
 
     public MarkingAttendance() {
         initComponents();
-        BDutility.setImage(this, "images/blackb.jpg", 2000, 1000);
+        fixWebcamPosition();
+        BDutility.setImage(this, "images/blackb.jpg", 1366, 768);
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.white));
         Timer timer = new Timer(1, e -> updateTime());
         timer.start();
@@ -79,8 +80,21 @@ public class MarkingAttendance extends javax.swing.JFrame implements Runnable, T
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         lbltime.setText(simpleDateFormat.format(new Date()));
 
-    }
-
+    }private void fixWebcamPosition() {
+    // Remove the panel from the layout entirely
+    getContentPane().remove(webCamPanel);
+    
+    // Reset layout to absolute positioning
+    getContentPane().setLayout(null);
+    
+    // Add the panel back with specific coordinates
+    webCamPanel.setBounds(39, 21, 689, 518);
+    getContentPane().add(webCamPanel);
+    
+    // Refresh the UI
+    revalidate();
+    repaint();
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -142,32 +156,33 @@ public class MarkingAttendance extends javax.swing.JFrame implements Runnable, T
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(webCamPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 532, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lbltime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(71, 71, 71)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(502, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblimage, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(135, 135, 135))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblname, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCheckInCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(175, 175, 175))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(exit)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 872, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblimage, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(135, 135, 135))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblname, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblCheckInCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(175, 175, 175))))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(526, 526, 526)
                 .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exit)
+                .addGap(83, 83, 83))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,10 +192,10 @@ public class MarkingAttendance extends javax.swing.JFrame implements Runnable, T
                         .addGap(21, 684, Short.MAX_VALUE)
                         .addComponent(webCamPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(exit)
-                        .addGap(1, 1, 1)
-                        .addComponent(jLabel1)
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(exit))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -259,44 +274,50 @@ public class MarkingAttendance extends javax.swing.JFrame implements Runnable, T
   Map<String, String> resultMap = new HashMap<String, String>();
 
     @Override
-    public void run() {
-        do {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                // Handle exception
-            }
-            try {
-                Result result = null;
-                BufferedImage image = null;
-                if (webcam.isOpen()) {
-                    if ((image = webcam.getImage()) == null) {
-                        continue;
+
+public void run() {
+    do {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            // Handle exception
+        }
+        
+        try {
+            Result result = null;
+            BufferedImage image = null;
+            
+            if (webcam != null && webcam.isOpen()) {  // Added webcam null check
+                image = webcam.getImage();
+                
+                // Only proceed if we have a valid image
+                if (image != null) {
+                    LuminanceSource source = new BufferedImageLuminanceSource(image);
+                    BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+                    
+                    try {
+                        result = new MultiFormatReader().decode(bitmap);
+                    } catch (NotFoundException ex) {
+                        // No QR code found - this is normal, continue
+                    }
+
+                    if (result != null) {
+                        String jsonString = result.getText();
+                        Gson gson = new Gson();
+                        java.lang.reflect.Type type = new TypeToken<Map<String, String>>() {}.getType();
+                        resultMap = gson.fromJson(jsonString, type);
+
+                        String finalPath = BDutility.getPath("images\\" + resultMap.get("email") + ".jpg");
+                        CircularImageFrame(finalPath);
                     }
                 }
-                LuminanceSource source = new BufferedImageLuminanceSource(image);
-                BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-                try {
-                    result = new MultiFormatReader().decode(bitmap);
-                } catch (NotFoundException ex) {
-                    // Handle exception (no QR code found)
-                }
-
-                if (result != null) {
-                    String jsonString = result.getText();
-                    Gson gson = new Gson(); // Initialize Gson inside the loop
-                    java.lang.reflect.Type type = new TypeToken<Map<String, String>>() {
-                    }.getType();
-                    resultMap = gson.fromJson(jsonString, type);
-
-                    String finalPath = BDutility.getPath("images\\" + resultMap.get("email") + ".jpg");
-                    CircularImageFrame(finalPath);
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                // Skip processing if image is null
             }
-        } while (running);
-    }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    } while (running);
+}
 
     @Override
     public Thread newThread(Runnable r) {
@@ -424,75 +445,97 @@ public class MarkingAttendance extends javax.swing.JFrame implements Runnable, T
         return circularImage;
     }
 
-    private boolean checkInCheckout() throws SQLException {
-        String popUpHeader = null;
-        String popUpMessage = null;
-        Color color = null;
-        Connection con = connectionprovider.getcon();
-        Statement st = con.createStatement();
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        ResultSet rs = st.executeQuery("select * from userattendance where date='" + currentDate.format(dateFormatter) + "' and userid=" + Integer.valueOf(resultMap.get("id")) + ";");
-        Connection connection = connectionprovider.getcon();
-        if (rs.next()) {
-            String checkOutDateTime = rs.getString(4);
-            if (checkOutDateTime != null) {
-                popUpMessage = "Already Checked out For the Day";
-                popUpHeader = "Invalid CheckOut";
-                showPopUpForCertainDuration(popUpMessage, popUpHeader, JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
+  private boolean checkInCheckout() throws SQLException {
+    String popUpHeader = null;
+    String popUpMessage = null;
+    Color color = null;
+    
+    Connection con = connectionprovider.getcon();
+    Statement st = con.createStatement();
+    
+    LocalDateTime currentDateTime = LocalDateTime.now();
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    
+    // Fetch last check-in
+    String query = "SELECT * FROM userattendance WHERE userid=" + Integer.valueOf(resultMap.get("id")) + 
+                   " ORDER BY checkin DESC LIMIT 1";
+    ResultSet rs = st.executeQuery(query);
+    
+    Connection connection = connectionprovider.getcon();
 
-            String checkInDateTime = rs.getString(3);
-            LocalDateTime checkInLocalDateTime = LocalDateTime.parse(checkInDateTime, dateTimeFormatter);
-            Duration duration = Duration.between(checkInLocalDateTime, currentDateTime);
+    if (rs.next()) {
+        String checkInDateTime = rs.getString("checkin");
+        LocalDateTime checkInLocalDateTime = LocalDateTime.parse(checkInDateTime, dateTimeFormatter);
+        Duration duration = Duration.between(checkInLocalDateTime, currentDateTime);
+        long minutesSinceLastCheckIn = duration.toMinutes();
 
-            long hours = duration.toHours();
-            long minutes = duration.minusHours(hours).toMinutes();
-            long seconds = duration.minusHours(hours).minusMinutes(minutes).getSeconds();
+        // If trying to check in within 1 hour of the last check-in
+        if (minutesSinceLastCheckIn < 60) {
+            long remainingMinutes = 60 - minutesSinceLastCheckIn;
+            popUpMessage = "You can scan the QR code after " + remainingMinutes + " minutes.";
+            popUpHeader = "Scan Restricted";
+            showPopUpForCertainDuration(popUpMessage, popUpHeader, JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
 
-            if (!(hours >= 0 || (hours == 0 && minutes >= 3))) {
-                long remainingMinutes = 3 - minutes;
-                long remainingSeconds = 60 - seconds;
+        // If the user has already checked out, allow new check-in after 1 hour
+        String checkOutDateTime = rs.getString("checkout");
+        if (checkOutDateTime != null) {
+            // Allow new check-in after 1 hour cooldown
+            String insertQuery = "INSERT INTO userattendance (userid, checkin) VALUES (?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+            preparedStatement.setString(1, resultMap.get("id"));
+            preparedStatement.setString(2, currentDateTime.format(dateTimeFormatter));
+            preparedStatement.executeUpdate();
 
-                popUpMessage = String.format("Your work duration is less than 5 minutes\nYou can check out after: %d minutes and %d seconds", remainingMinutes, remainingSeconds);
-                popUpHeader = "Duration Warning";
+            popUpHeader = "Check-In";
+            popUpMessage = "Checked In at " + currentDateTime.format(dateTimeFormatter);
+            color = Color.GREEN;
+        } else {
+            // If not checked out, perform checkout
+            if (minutesSinceLastCheckIn < 60) {
+                long remainingMinutes = 60 - minutesSinceLastCheckIn;
+                popUpMessage = "You need to complete 1 hour before checkout.\nRemaining: " + remainingMinutes + " minutes.";
+                popUpHeader = "Session Duration Warning";
                 showPopUpForCertainDuration(popUpMessage, popUpHeader, JOptionPane.WARNING_MESSAGE);
                 return false;
             }
-            String updateQuery = "update userattendance set checkout=?, workduration=? where date=? and userid=?";
+
+            // Perform checkout
+            String updateQuery = "UPDATE userattendance SET checkout=?, workduration=? WHERE id=?";
             PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
             preparedStatement.setString(1, currentDateTime.format(dateTimeFormatter));
-            preparedStatement.setString(2, "" + hours + " Hours and " + minutes + " Minutes");
-            preparedStatement.setString(3, currentDate.format(dateFormatter));
-            preparedStatement.setString(4, resultMap.get("id"));
+            preparedStatement.setString(2, minutesSinceLastCheckIn + " Minutes");
+            preparedStatement.setString(3, rs.getString("id"));
             preparedStatement.executeUpdate();
-            popUpHeader = "Checkout";
-            popUpMessage = "Checked Out at " + currentDateTime.format(dateTimeFormatter) + "\nWork Duration " + hours + " Hours and " + minutes + " Minutes";
-            color = Color.RED;
-        } else {
-// CheckIn
-            String insertQuery = "INSERT INTO userattendance (userid, date, checkin) VALUES (?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-            preparedStatement.setString(1, resultMap.get("id"));
-            preparedStatement.setString(2, currentDate.format(dateFormatter));
-            preparedStatement.setString(3, currentDateTime.format(dateTimeFormatter));
-            preparedStatement.executeUpdate();
-            popUpHeader = "CheckIn";
-            popUpMessage = "Check In at " + currentDateTime.format(dateTimeFormatter);
-            color = Color.GREEN;
-        }
-        lblCheckInCheckOut.setHorizontalAlignment(JLabel.CENTER);
-        lblCheckInCheckOut.setText(popUpHeader);
-        lblCheckInCheckOut.setForeground(color);
-        lblCheckInCheckOut.setBackground(Color.DARK_GRAY);
-        lblCheckInCheckOut.setOpaque(true);
-        showPopUpForCertainDuration(popUpMessage, popUpHeader, JOptionPane.INFORMATION_MESSAGE);
-        return Boolean.TRUE;
 
+            popUpHeader = "Checkout";
+            popUpMessage = "Checked Out at " + currentDateTime.format(dateTimeFormatter) + "\nWork Duration: " + minutesSinceLastCheckIn + " Minutes";
+            color = Color.RED;
+        }
+    } else {
+        // Perform Check-In (First Scan)
+        String insertQuery = "INSERT INTO userattendance (userid, checkin) VALUES (?,?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+        preparedStatement.setString(1, resultMap.get("id"));
+        preparedStatement.setString(2, currentDateTime.format(dateTimeFormatter));
+        preparedStatement.executeUpdate();
+
+        popUpHeader = "Check-In";
+        popUpMessage = "Checked In at " + currentDateTime.format(dateTimeFormatter);
+        color = Color.GREEN;
     }
+
+    lblCheckInCheckOut.setHorizontalAlignment(JLabel.CENTER);
+    lblCheckInCheckOut.setText(popUpHeader);
+    lblCheckInCheckOut.setForeground(color);
+    lblCheckInCheckOut.setBackground(Color.DARK_GRAY);
+    lblCheckInCheckOut.setOpaque(true);
+    showPopUpForCertainDuration(popUpMessage, popUpHeader, JOptionPane.INFORMATION_MESSAGE);
+    
+    return true;
+}
+
 
     @Override
     public void paint(Graphics g) {

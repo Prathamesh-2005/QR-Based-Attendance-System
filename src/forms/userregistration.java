@@ -35,7 +35,7 @@ public class userregistration extends javax.swing.JFrame {
      */
     public userregistration() {
         initComponents();
-        BDutility.setImage(this,"images/blackb.jpg",1000,700);
+        BDutility.setImage(this,"images/blackb.jpg",850,600);
         this.getRootPane().setBorder(BorderFactory.createMatteBorder(4,4,4,4,Color.white));
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -66,7 +66,6 @@ public class userregistration extends javax.swing.JFrame {
         txtstate = new javax.swing.JTextField();
         txtcountry = new javax.swing.JTextField();
         txtaddress = new javax.swing.JTextField();
-        capture = new javax.swing.JButton();
         Clear = new javax.swing.JButton();
         register = new javax.swing.JButton();
 
@@ -148,14 +147,6 @@ public class userregistration extends javax.swing.JFrame {
 
         txtaddress.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        capture.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        capture.setText("Capture");
-        capture.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                captureActionPerformed(evt);
-            }
-        });
-
         Clear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Clear.setText("Clear");
         Clear.addActionListener(new java.awt.event.ActionListener() {
@@ -183,13 +174,11 @@ public class userregistration extends javax.swing.JFrame {
                 .addComponent(exit)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(165, 165, 165)
-                .addComponent(capture, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addGap(233, 233, 233)
                 .addComponent(register, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addGap(150, 150, 150)
                 .addComponent(Clear, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                .addGap(157, 157, 157))
+                .addGap(202, 202, 202))
             .addGroup(layout.createSequentialGroup()
                 .addGap(190, 190, 190)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -266,7 +255,6 @@ public class userregistration extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(capture)
                     .addComponent(register)
                     .addComponent(Clear))
                 .addGap(21, 21, 21))
@@ -278,29 +266,12 @@ public class userregistration extends javax.swing.JFrame {
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
           // TODO add your handling code here:
-          dispose();
+          this.dispose();
     }//GEN-LAST:event_exitActionPerformed
 
     private void radiomaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiomaleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_radiomaleActionPerformed
-
-    private void captureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_captureActionPerformed
-        // TODO add your handling code here:
-            String email = txtemail.getText().trim();
-        if (!email.isEmpty()) {
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        facedetection face = new facedetection(email);  // Pass the email to the facedetection class
-        new Thread(new Runnable() {
-            public void run() {
-                face.startCamera();
-            }
-        }).start();
-    } else {
-        JOptionPane.showMessageDialog(null, "Please enter a valid email address.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-        
-    }//GEN-LAST:event_captureActionPerformed
 
     private void radiomaleItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radiomaleItemStateChanged
         // TODO add your handling code here:
@@ -435,7 +406,6 @@ public class userregistration extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Clear;
-    private javax.swing.JButton capture;
     private javax.swing.JButton exit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -90,7 +90,7 @@ public class Deleteuser extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Name", "Gender", "Email", "Contact", "Address", "Division", "batch", "Registration Id", "Image Name"
+                "ID", "Roll no", "Name", "Department", "Division", "Batch", "Email", "Gender", "Contact", "Address"
             }
         ));
         userTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -99,6 +99,10 @@ public class Deleteuser extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(userTable);
+        if (userTable.getColumnModel().getColumnCount() > 0) {
+            userTable.getColumnModel().getColumn(1).setResizable(false);
+            userTable.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Search");
