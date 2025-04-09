@@ -77,7 +77,7 @@ public class viewuser extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Roll No", "Name", "Department", "Division", "Batch", "Gender", "Email", "Contact", "Address"
+                "ID", "Name", "Gender", "Email", "Contact", "Department", "Class", "Batch", "Reg_id"
             }
         ));
         usertable.addMouseListener(new java.awt.event.MouseAdapter() {

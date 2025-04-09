@@ -31,21 +31,18 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="search" alignment="1" min="-2" pref="131" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="103" pref="103" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtstate" alignment="0" min="-2" pref="356" max="-2" attributes="0"/>
-                                      <Component id="txtaddress" alignment="0" min="-2" pref="356" max="-2" attributes="0"/>
-                                      <Component id="txtcontact" alignment="0" min="-2" pref="356" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel7" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                  <Component id="txtcountry" min="-2" pref="356" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtcountry" min="-2" pref="356" max="-2" attributes="0"/>
+                                      <Component id="txtstate" alignment="0" min="-2" pref="356" max="-2" attributes="0"/>
+                                      <Component id="txtaddress" alignment="0" min="-2" pref="356" max="-2" attributes="0"/>
+                                      <Component id="txtcontact" alignment="0" min="-2" pref="356" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
@@ -221,7 +218,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Address"/>
+        <Property name="text" type="java.lang.String" value="DEPT"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -232,7 +229,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Division"/>
+        <Property name="text" type="java.lang.String" value="DIV"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">

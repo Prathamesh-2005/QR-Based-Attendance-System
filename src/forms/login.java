@@ -160,7 +160,7 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:01board
         String email=txtemail.getText().toString();
         String password=new String(txtpassword.getPassword());
-        if("admin@gmail.com".equalsIgnoreCase(email)&&"appproject".equalsIgnoreCase(password)){
+        if("prathamesh@gmail.com".equalsIgnoreCase(email)&&"pict123".equalsIgnoreCase(password)){
             this.dispose();
             BDutility.openForm(Dashboard.class.getSimpleName(),new Dashboard());
             

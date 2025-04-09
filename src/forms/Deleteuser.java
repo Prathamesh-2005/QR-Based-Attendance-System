@@ -90,7 +90,7 @@ public class Deleteuser extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Roll no", "Name", "Department", "Division", "Batch", "Email", "Gender", "Contact", "Address"
+                "ID", "Name", "Gender", "Email", "Contact", "Department", "Division", "Batch", "Uniq_reg_id", "-"
             }
         ));
         userTable.addMouseListener(new java.awt.event.MouseAdapter() {

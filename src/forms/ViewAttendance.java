@@ -187,7 +187,7 @@ public class ViewAttendance extends javax.swing.JFrame {
 
         CheckBoxAddress.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         CheckBoxAddress.setForeground(new java.awt.Color(255, 255, 255));
-        CheckBoxAddress.setText("Address");
+        CheckBoxAddress.setText("DEPT");
         CheckBoxAddress.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 CheckBoxAddressItemStateChanged(evt);
