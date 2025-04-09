@@ -42,6 +42,7 @@ import java.sql.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -445,98 +446,247 @@ public void run() {
         return circularImage;
     }
 
-  private boolean checkInCheckout() throws SQLException {
+ private boolean checkInCheckout() throws SQLException {
     String popUpHeader = null;
     String popUpMessage = null;
     Color color = null;
     
-    Connection con = connectionprovider.getcon();
-    Statement st = con.createStatement();
-    
+    // For testing: Log the current time and status
     LocalDateTime currentDateTime = LocalDateTime.now();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    String currentDate = currentDateTime.format(dateFormatter);
     
-    // Fetch last check-in
-    String query = "SELECT * FROM userattendance WHERE userid=" + Integer.valueOf(resultMap.get("id")) + 
-                   " ORDER BY checkin DESC LIMIT 1";
-    ResultSet rs = st.executeQuery(query);
+    // Get current session name based on time
+    String sessionName = getSessionName(currentDateTime);
     
-    Connection connection = connectionprovider.getcon();
-
-    if (rs.next()) {
-        String checkInDateTime = rs.getString("checkin");
-        LocalDateTime checkInLocalDateTime = LocalDateTime.parse(checkInDateTime, dateTimeFormatter);
-        Duration duration = Duration.between(checkInLocalDateTime, currentDateTime);
-        long minutesSinceLastCheckIn = duration.toMinutes();
-
-        // If trying to check in within 1 hour of the last check-in
-        if (minutesSinceLastCheckIn < 60) {
-            long remainingMinutes = 60 - minutesSinceLastCheckIn;
-            popUpMessage = "You can scan the QR code after " + remainingMinutes + " minutes.";
-            popUpHeader = "Scan Restricted";
-            showPopUpForCertainDuration(popUpMessage, popUpHeader, JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-
-        // If the user has already checked out, allow new check-in after 1 hour
-        String checkOutDateTime = rs.getString("checkout");
-        if (checkOutDateTime != null) {
-            // Allow new check-in after 1 hour cooldown
-            String insertQuery = "INSERT INTO userattendance (userid, checkin) VALUES (?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-            preparedStatement.setString(1, resultMap.get("id"));
-            preparedStatement.setString(2, currentDateTime.format(dateTimeFormatter));
+    System.out.println("TEST: Current time: " + currentDateTime.format(dateTimeFormatter));
+    System.out.println("TEST: Current date: " + currentDate);
+    System.out.println("TEST: Current class period: " + getClassPeriodLabel(currentDateTime));
+    System.out.println("TEST: Current session: " + sessionName);
+    
+    Connection con = null;
+    try {
+        con = connectionprovider.getcon();
+        
+        // First check if there's an active check-in (without checkout) for this user
+        String activeCheckInQuery = "SELECT * FROM userattendance WHERE userid=? AND checkout IS NULL ORDER BY checkin DESC LIMIT 1";
+        PreparedStatement activeCheckStmt = con.prepareStatement(activeCheckInQuery);
+        activeCheckStmt.setInt(1, Integer.valueOf(resultMap.get("id")));
+        ResultSet activeRs = activeCheckStmt.executeQuery();
+        
+        // If there's an active check-in (without checkout), process checkout logic
+        if (activeRs.next()) {
+            String checkInDateTime = activeRs.getString("checkin");
+            String sessionNameFromDb = activeRs.getString("session_name");
+            // Get the record ID - make sure to use getInt for numeric IDs
+            int recordId = activeRs.getInt("id");
+            
+            System.out.println("TEST: Active check-in found without checkout - Check-in: " + checkInDateTime + ", Record ID: " + recordId);
+            
+            // Calculate duration since check-in
+            LocalDateTime checkInLocalDateTime = LocalDateTime.parse(checkInDateTime, dateTimeFormatter);
+            Duration duration = Duration.between(checkInLocalDateTime, currentDateTime);
+            long minutesSinceLastCheckIn = duration.toMinutes();
+            System.out.println("TEST: Minutes since last check-in: " + minutesSinceLastCheckIn);
+            
+            // For testing with 5-minute classes
+            int minimumClassDuration = 5; // 5 minutes for testing
+            
+            // Use the session name from the database record
+            if (sessionNameFromDb == null || sessionNameFromDb.isEmpty()) {
+                sessionNameFromDb = sessionName; // Fallback to current session if none was recorded
+            }
+            
+            // Check if attempting to checkout early
+            if (minutesSinceLastCheckIn < minimumClassDuration) {
+                // Early checkout case - show warning and don't mark attendance
+                popUpHeader = "Early Checkout Warning";
+                popUpMessage = "WARNING: Early departure detected!\n\n" +
+                              "You need to complete at least " + minimumClassDuration + " minutes for attendance to be marked.\n" +
+                              "Current duration: " + minutesSinceLastCheckIn + " minutes\n" +
+                              "Time remaining: " + (minimumClassDuration - minutesSinceLastCheckIn) + " minutes\n\n" +
+                              "Your attendance will NOT be marked for this session.";
+                color = Color.RED;
+                
+                // Show warning popup but don't update database
+                showPopUpForCertainDuration(popUpMessage, popUpHeader, JOptionPane.ERROR_MESSAGE);
+                
+                // Option: Allow them to force checkout but with no attendance
+                int option = JOptionPane.showConfirmDialog(null, 
+                    "Do you still want to checkout without getting attendance credit?", 
+                    "Confirm Early Checkout", 
+                    JOptionPane.YES_NO_OPTION);
+                
+                if (option == JOptionPane.YES_OPTION) {
+                    // User confirmed early checkout - mark as invalid attendance
+                    String updateQuery = "UPDATE userattendance SET checkout=?, workduration=?, attendance_status=? WHERE id=?";
+                    PreparedStatement preparedStatement = con.prepareStatement(updateQuery);
+                    preparedStatement.setString(1, currentDateTime.format(dateTimeFormatter));
+                    preparedStatement.setString(2, minutesSinceLastCheckIn + " Minutes");
+                    preparedStatement.setString(3, "INVALID - Early Departure");  // Mark as invalid
+                    preparedStatement.setInt(4, recordId);  // Use the ID from database
+                    preparedStatement.executeUpdate();
+                    
+                    System.out.println("TEST: Early checkout recorded as INVALID attendance. Duration: " + minutesSinceLastCheckIn + " Minutes");
+                    
+                    popUpHeader = "Early Checkout Recorded";
+                    popUpMessage = "You have checked out early.\nAttendance marked as INVALID for this session.\n" +
+                                 "Subject: " + sessionNameFromDb + "\n" +
+                                 "Duration: " + minutesSinceLastCheckIn + " minutes of " + minimumClassDuration + " required minutes";
+                    color = Color.ORANGE;
+                } else {
+                    // User canceled early checkout
+                    System.out.println("TEST: User canceled early checkout");
+                    popUpHeader = "Checkout Canceled";
+                    popUpMessage = "Checkout has been canceled.\nYour check-in is still active.\n" +
+                                 "Please complete the full " + minimumClassDuration + " minutes for attendance credit.";
+                    color = Color.BLUE;
+                }
+            } else {
+                // Regular checkout with full attendance
+                String updateQuery = "UPDATE userattendance SET checkout=?, workduration=?, attendance_status=? WHERE id=?";
+                PreparedStatement preparedStatement = con.prepareStatement(updateQuery);
+                preparedStatement.setString(1, currentDateTime.format(dateTimeFormatter));
+                preparedStatement.setString(2, minutesSinceLastCheckIn + " Minutes");
+                preparedStatement.setString(3, "VALID");  // Mark as valid attendance
+                preparedStatement.setInt(4, recordId);  // Use the ID from database
+                preparedStatement.executeUpdate();
+                
+                System.out.println("TEST: Regular checkout recorded with VALID attendance. Duration: " + minutesSinceLastCheckIn + " Minutes");
+                
+                popUpHeader = "Checkout Complete";
+                popUpMessage = "Successfully checked out!\n" +
+                             "Attendance has been marked as VALID.\n" +
+                             "Subject: " + sessionNameFromDb + "\n" +
+                             "Duration: " + minutesSinceLastCheckIn + " minutes";
+                color = Color.GREEN;
+            }
+        } else {
+            // No active check-in, so allow a new check-in
+            System.out.println("TEST: No active check-in found. Performing new check-in.");
+            
+            // Insert new record for check-in
+            String insertQuery = "INSERT INTO userattendance (userid, date, checkin, session_name, attendance_status) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = con.prepareStatement(insertQuery);
+            preparedStatement.setInt(1, Integer.valueOf(resultMap.get("id")));
+            preparedStatement.setString(2, currentDate);
+            preparedStatement.setString(3, currentDateTime.format(dateTimeFormatter));
+            preparedStatement.setString(4, sessionName);
+            preparedStatement.setString(5, "PENDING");  // Attendance is pending until checkout
             preparedStatement.executeUpdate();
 
             popUpHeader = "Check-In";
-            popUpMessage = "Checked In at " + currentDateTime.format(dateTimeFormatter);
+            popUpMessage = "Successfully checked in!\n" +
+                         "Class: " + getClassPeriodLabel(currentDateTime) + "\n" +
+                         "Subject: " + sessionName + "\n" +
+                         "Note: You must complete " + 5 + " minutes for valid attendance";
             color = Color.GREEN;
-        } else {
-            // If not checked out, perform checkout
-            if (minutesSinceLastCheckIn < 60) {
-                long remainingMinutes = 60 - minutesSinceLastCheckIn;
-                popUpMessage = "You need to complete 1 hour before checkout.\nRemaining: " + remainingMinutes + " minutes.";
-                popUpHeader = "Session Duration Warning";
-                showPopUpForCertainDuration(popUpMessage, popUpHeader, JOptionPane.WARNING_MESSAGE);
-                return false;
-            }
-
-            // Perform checkout
-            String updateQuery = "UPDATE userattendance SET checkout=?, workduration=? WHERE id=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(updateQuery);
-            preparedStatement.setString(1, currentDateTime.format(dateTimeFormatter));
-            preparedStatement.setString(2, minutesSinceLastCheckIn + " Minutes");
-            preparedStatement.setString(3, rs.getString("id"));
-            preparedStatement.executeUpdate();
-
-            popUpHeader = "Checkout";
-            popUpMessage = "Checked Out at " + currentDateTime.format(dateTimeFormatter) + "\nWork Duration: " + minutesSinceLastCheckIn + " Minutes";
-            color = Color.RED;
+            System.out.println("TEST: Successfully checked in for " + sessionName);
         }
-    } else {
-        // Perform Check-In (First Scan)
-        String insertQuery = "INSERT INTO userattendance (userid, checkin) VALUES (?,?)";
-        PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-        preparedStatement.setString(1, resultMap.get("id"));
-        preparedStatement.setString(2, currentDateTime.format(dateTimeFormatter));
-        preparedStatement.executeUpdate();
-
-        popUpHeader = "Check-In";
-        popUpMessage = "Checked In at " + currentDateTime.format(dateTimeFormatter);
-        color = Color.GREEN;
-    }
-
-    lblCheckInCheckOut.setHorizontalAlignment(JLabel.CENTER);
-    lblCheckInCheckOut.setText(popUpHeader);
-    lblCheckInCheckOut.setForeground(color);
-    lblCheckInCheckOut.setBackground(Color.DARK_GRAY);
-    lblCheckInCheckOut.setOpaque(true);
-    showPopUpForCertainDuration(popUpMessage, popUpHeader, JOptionPane.INFORMATION_MESSAGE);
     
-    return true;
+        // Display the checkout/checkin popup with improved visibility
+        lblCheckInCheckOut.setHorizontalAlignment(JLabel.CENTER);
+        lblCheckInCheckOut.setText(popUpHeader);
+        lblCheckInCheckOut.setForeground(color);
+        lblCheckInCheckOut.setBackground(Color.DARK_GRAY);
+        lblCheckInCheckOut.setOpaque(true);
+        
+        // IMPORTANT: Fix for checkout popup not being visible
+        // Show popup using the dedicated method that ensures visibility
+        showPopUpForCertainDuration(popUpMessage, popUpHeader, JOptionPane.INFORMATION_MESSAGE);
+        
+        System.out.println("TEST: Popup displayed with message: " + popUpMessage);
+        System.out.println("TEST: Operation completed successfully: " + popUpHeader);
+        return true;
+    } catch (SQLException e) {
+        System.out.println("Database error occurred: " + e.getMessage());
+        e.printStackTrace();
+        
+        // Show error to user
+        showPopUpForCertainDuration("An error occurred: " + e.getMessage(), 
+                                    "Database Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+    } finally {
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing database connection: " + e.getMessage());
+            }
+        }
+    }
+}
+ private String getSessionName(LocalDateTime dateTime) {
+    try {
+        if (dateTime == null) {
+            System.out.println("ERROR: dateTime is null in getSessionName");
+            return "Unknown Session";
+        }
+        
+        int minute = dateTime.getMinute();
+        
+        // For testing: Use the minutes to determine the subject in a rotating fashion
+        int timeBlock = (minute / 5) % 4;  // Will give values 0-3 in 5-minute blocks
+        
+        switch(timeBlock) {
+            case 0:
+                return "Database Management System";
+            case 1:
+                return "Software Engineering";
+            case 2:
+                return "Computer Graphics";
+            case 3:
+                return "Processor Architecture";
+            default:
+                return "Unknown Session";
+        }
+    } catch (Exception e) {
+        System.out.println("ERROR in getSessionName: " + e.getMessage());
+        e.printStackTrace();
+        return "Unknown Session"; // Return a fallback value
+    }
+}
+ private String getClassPeriodLabel(LocalDateTime currentTime) {
+    try {
+        // Check if currentTime is null
+        if (currentTime == null) {
+            System.out.println("ERROR: currentTime is null in getClassPeriodLabel");
+            return "Unknown Period";
+        }
+        
+        // For testing with 5-minute classes
+        int hour = currentTime.getHour();
+        int minute = currentTime.getMinute();
+        
+        // Calculate the current 5-minute block
+        int currentBlock = minute / 5;
+        int startMinute = currentBlock * 5;
+        int endMinute = startMinute + 5;
+        int endHour = hour;
+        
+        // Handle hour rollover
+        if (endMinute >= 60) {
+            endMinute = endMinute % 60;
+            endHour = (hour + 1) % 24;
+        }
+        
+        // Format the class period string
+        return "Period " + (currentBlock + 1) + " (" + 
+                String.format("%02d", hour) + ":" + String.format("%02d", startMinute) + " - " + 
+                String.format("%02d", endHour) + ":" + String.format("%02d", endMinute) + ")";
+    } catch (Exception e) {
+        System.out.println("ERROR in getClassPeriodLabel: " + e.getMessage());
+        e.printStackTrace();
+        return "Period Error"; // Return a fallback value
+    }
 }
 
-
+/**
+ * Add this SQL script to add the attendance_status column if it doesn't exist:
+ * 
+ * ALTER TABLE userattendance ADD COLUMN attendance_status VARCHAR(20) DEFAULT 'PENDING';
+ */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
