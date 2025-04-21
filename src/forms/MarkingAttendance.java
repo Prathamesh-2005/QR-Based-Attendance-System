@@ -491,7 +491,7 @@ public void run() {
             System.out.println("TEST: Minutes since last check-in: " + minutesSinceLastCheckIn);
             
             // For testing with 5-minute classes
-            int minimumClassDuration = 5; // 5 minutes for testing
+            int minimumClassDuration = 1; // 5 minutes for testing
             
             // Use the session name from the database record
             if (sessionNameFromDb == null || sessionNameFromDb.isEmpty()) {
